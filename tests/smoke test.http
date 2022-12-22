@@ -1,0 +1,8 @@
+# Smoke test
+GET http://httpbin/status/200
+
+{%
+  client.test("Response status should be 200", function() {
+    client.assert(response.status === 200, "Response status is not 200");
+  });
+%}

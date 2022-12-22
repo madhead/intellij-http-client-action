@@ -1,0 +1,44 @@
+= IntelliJ HTTP Client CLI GitHub Action
+
+This is a thin GitHub Action wrapper around the https://blog.jetbrains.com/idea/2022/12/http-client-cli-run-requests-and-tests-on-ci[IntelliJ HTTP Client CLI].
+It allows you to run `*.http` files in your GitHub Actions workflows.
+
+== Usage
+
+The action accepts the same inputs as the original CLI tool.
+Refer to it's documentation for more details.
+A simple way to get that documentation is to run the tool with Docker: `docker run --rm -it jetbrains/intellij-http-client:latest`.
+
+Generally, the action is used like this 👇
+
+[source, yaml]
+----
+jobs:
+  job:
+    steps:
+
+      - name: Execute HTTP requests
+        uses: madhead/intellij-http-client-cli-action@latest
+        with:
+          files: |-
+            request1.http
+            request2.http
+          env_file: environments.json
+          env: test
+          env_variables: |-
+            var1=value1
+            var2=value2
+          insecure: true
+----
+
+String and boolean values, like `--env` and `--insecure`, are passed as usually.
+
+List values, like `--files` or `--env-variables`, are passed as https://yaml-multiline.info[YAML multiline strings] ⚠️ 
+
+See link:.github/workflows/ci.yml[the test workflow] for a complete example.
+It has https://www.jetbrains.com/help/idea/exploring-http-syntax.html#http_request_names[named tests], tests with https://www.jetbrains.com/help/idea/exploring-http-syntax.html#using_request_vars[variables & environments], tests with https://www.jetbrains.com/help/idea/exploring-http-syntax.html#response-handling[response handlers], etc.
+
+== Issues
+Do you have an issue or a question?
+Do not hesitate https://github.com/madhead/intellij-http-client-action/issues/new[reporting it]!
+Providing a minimal reproducible example in link:.github/workflows/ci.0yml[the test workflow] is highly appreciated 👐
