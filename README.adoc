@@ -41,4 +41,4 @@ It has https://www.jetbrains.com/help/idea/exploring-http-syntax.html#http_reque
 == Issues
 Do you have an issue or a question?
 Do not hesitate https://github.com/madhead/intellij-http-client-action/issues/new[reporting it]!
-Providing a minimal reproducible example in link:.github/workflows/ci.0yml[the test workflow] is highly appreciated 👐
+Providing a minimal reproducible example in link:.github/workflows/ci.yml[the test workflow] is highly appreciated 👐
