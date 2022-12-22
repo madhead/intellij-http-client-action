@@ -1,0 +1,41 @@
+inputs:
+  files:
+    type: list
+    separator: ' '
+    list-item:
+      type: string
+
+  socket_timeout:
+    type: integer
+  connect_timeout:
+    type: integer
+  insecure:
+    type: boolean
+
+  env:
+    type: string
+  env_file:
+    type: string
+  env_variables:
+    type: list
+    separator: '\n'
+    list-item:
+      type: string
+  private_env_file:
+    type: string
+  private_env_variables:
+    type: list
+    separator: '\n'
+    list-item:
+      type: string
+
+  docker_mode:
+    type: boolean
+  log_level:
+    type: enum
+    allowed-values:
+      - BASIC
+      - HEADERS
+      - VERBOSE
+  report:
+    type: boolean

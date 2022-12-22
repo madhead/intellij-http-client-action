@@ -1,0 +1,99 @@
+name: Test
+
+on:
+  push:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    services:
+      # httpbin.org is not highly available, so we use a local instance instead.
+      # This clause will set up one, available via Docker networking at 'http://httpbin:80'.
+      # Thus, all the tests below must set 'insecure' to 'true' to be able to use the 'http' protocol.
+      httpbin:
+        image: kennethreitz/httpbin
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Smoke test
+        uses: ./
+        with:
+          files: |-
+            tests/smoke test.http
+          insecure: true
+
+      - name: Test multuple input files
+        uses: ./
+        with:
+          files: |-
+            ./tests/smoke test.http
+            ./tests/404.http
+          insecure: true
+
+      - name: Test environment file
+        uses: ./
+        with:
+          files: |-
+            ./tests/environment file.http
+          env: test
+          env_file: ./tests/http.env.json
+          insecure: true
+
+      - name: Test private environment file
+        uses: ./
+        with:
+          files: |-
+            ./tests/private environment file.http
+          env: test
+          env_file: ./tests/http.env.json
+          private_env_file: ./tests/http.private.env.json
+          insecure: true
+
+      - name: Test environment variables
+        uses: ./
+        with:
+          files: |-
+            ./tests/environment variables.http
+          env_variables: |-
+            host=httpbin
+          insecure: true
+
+      - name: Test private environment variables
+        uses: ./
+        with:
+          files: |-
+            ./tests/private environment variables.http
+          env_variables: |-
+            host=httpbin
+          private_env_variables: |-
+            path=200
+          insecure: true
+
+      - name: Test multiple environment variables
+        uses: ./
+        with:
+          files: |-
+            ./tests/private environment variables.http
+          env_variables: |-
+            host=httpbin
+            path=200
+          insecure: true
+
+      - name: Test multiple private environment variables
+        uses: ./
+        with:
+          files: |-
+            ./tests/private environment variables.http
+          private_env_variables: |-
+            host=httpbin
+            path=200
+          insecure: true
+
+      - name: Test report generation
+        uses: ./
+        with:
+          files: |-
+            tests/smoke test.http
+          report: true
+          insecure: true

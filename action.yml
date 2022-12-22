@@ -1,0 +1,60 @@
+name: intellij-http-client-action
+author: madhead <siarhei.krukau@gmail.com>
+description: IntelliJ HTTP Client CLI GitHub Action – Run Requests and Tests on CI
+
+inputs:
+  files:
+    description: HTTP file paths
+    required: true
+
+  socket_timeout:
+    description: Number of milliseconds for socket read
+    required: false
+    # default: '10000'
+  connect_timeout:
+    description: Number of milliseconds for connection
+    required: false
+    # default: '3000'
+  insecure:
+    description: Allow insecure SSL connections
+    required: false
+    # default: 'false'
+
+  env:
+    description: Name of the environment in config file
+    required: false
+  env_file:
+    description: Name of the public environment file
+    required: false
+    # default: http-client.env.json
+  env_variables:
+    description: Public environment variables ('key=value')
+    required: false
+  private_env_file:
+    description: Name of the private environment file
+    required: false
+    # default: http-client.private.env.json
+  private_env_variables:
+    description: Private environment variables ('key=value')
+    required: false
+
+  docker_mode:
+    description: Enables Docker mode. Treat 'localhost' as 'host.docker.internal'
+    required: false
+    # default: 'false'
+  log_level:
+    description: Logging level. One of 'BASIC' (default), 'HEADERS', or 'VERBOSE'
+    required: false
+    # default: 'BASIC'
+  report:
+    description: Creates report about execution in JUnit XML Format. Puts it in folder 'reports' in the current directory
+    required: false
+    # default: 'false'
+
+runs:
+  using: docker
+  image: Dockerfile
+
+branding:
+  icon: arrow-up-right
+  color: gray-dark

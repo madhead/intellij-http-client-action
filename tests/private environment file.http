@@ -1,0 +1,2 @@
+### Test private environment file
+GET http://{{host}}/status/{{path}}
