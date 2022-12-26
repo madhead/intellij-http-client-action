@@ -18,7 +18,7 @@ jobs:
     steps:
 
       - name: Execute HTTP requests
-        uses: madhead/intellij-http-client-cli-action@latest
+        uses: madhead/intellij-http-client-action@latest
         with:
           files: |-
             request1.http
