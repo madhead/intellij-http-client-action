@@ -54,6 +54,8 @@ inputs:
 runs:
   using: docker
   image: Dockerfile
+  args:
+    - "--add-host=host.docker.internal:host-gateway"
 
 branding:
   icon: arrow-up-right
