@@ -37,6 +37,9 @@ inputs:
   private_env_variables:
     description: Private environment variables ('key=value')
     required: false
+  proxy:
+    description: Proxy setting in format 'scheme://login:password@host:port'
+    required: false
 
   docker_mode:
     description: Enables Docker mode. Treat 'localhost' as 'host.docker.internal'
