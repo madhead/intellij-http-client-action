@@ -28,6 +28,8 @@ inputs:
     separator: '\n'
     list-item:
       type: string
+  proxy:
+    type: string
 
   docker_mode:
     type: boolean
