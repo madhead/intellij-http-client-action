@@ -65,5 +65,6 @@ flag options 'report' "${INPUT_REPORT}"
     -cp '/intellij-http-client/*' \
     com.intellij.httpClient.cli.HttpClientMain \
     "${options[@]}" \
+    -- \
     "${files[@]}"
 )
