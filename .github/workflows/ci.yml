@@ -14,7 +14,7 @@ jobs:
       httpbin:
         image: kennethreitz/httpbin
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Smoke test
         uses: ./
