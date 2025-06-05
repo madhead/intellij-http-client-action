@@ -37,20 +37,29 @@ inputs:
   private_env_variables:
     description: Private environment variables ('key=value')
     required: false
+
+  report:
+    description: Creates report about execution in JUnit XML Format. Puts it in folder 'reports' in the current directory
+    required: false
+    # default: 'false'
+
   proxy:
     description: Proxy setting in format 'scheme://login:password@host:port'
     required: false
-
   docker_mode:
     description: Enables Docker mode. Treat 'localhost' as 'host.docker.internal'
     required: false
     # default: 'false'
+
   log_level:
     description: Logging level. One of 'BASIC' (default), 'HEADERS', or 'VERBOSE'
     required: false
     # default: 'BASIC'
-  report:
-    description: Creates report about execution in JUnit XML Format. Puts it in folder 'reports' in the current directory
+  js:
+    description: "JavaScript engine: 'graalvm' or 'rhino'"
+    required: false
+  no_progress:
+    description: Disables the progress bar display
     required: false
     # default: 'false'
 

@@ -1,0 +1,2 @@
+### Test environment file
+GET http://{{host.value}}/status/200

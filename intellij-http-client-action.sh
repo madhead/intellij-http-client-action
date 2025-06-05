@@ -52,11 +52,15 @@ values options 'env-variables' "${INPUT_ENV_VARIABLES}"
 option options 'private-env-file' "${INPUT_PRIVATE_ENV_FILE}"
 values options 'private-env-variables' "${INPUT_PRIVATE_ENV_VARIABLES}"
 
+flag options 'report' "${INPUT_REPORT}"
+
 # https://youtrack.jetbrains.com/issue/IDEA-314789/IntelliJ-HTTP-Client-ignores-proxy-settings
 option options 'proxy' "${INPUT_PROXY}"
-
 flag options 'docker-mode' "${INPUT_DOCKER_MODE}"
+
 option options 'log-level' "${INPUT_LOG_LEVEL}"
+option options 'js' "${INPUT_JS}"
+flag options 'no-progress' "${INPUT_NO_PROGRESS}"
 
 (
   set -x;

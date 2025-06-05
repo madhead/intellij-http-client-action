@@ -28,16 +28,25 @@ inputs:
     separator: '\n'
     list-item:
       type: string
+
+  report:
+    type: boolean
+
   proxy:
     type: string
-
   docker_mode:
     type: boolean
+
   log_level:
     type: enum
     allowed-values:
       - BASIC
       - HEADERS
       - VERBOSE
-  report:
+  js:
+    type: enum
+    allowed-values:
+      - graalvm
+      - rhino
+  no_progress:
     type: boolean

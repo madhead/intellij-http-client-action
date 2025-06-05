@@ -37,8 +37,9 @@ jobs:
           files: |-
             ./tests/environment file.http
           env: test
-          env_file: ./tests/http.env.json
+          env_file: ./tests/http.rhino.env.json
           insecure: true
+          js: rhino
 
       - name: Test private environment file
         uses: ./
@@ -46,9 +47,19 @@ jobs:
           files: |-
             ./tests/private environment file.http
           env: test
-          env_file: ./tests/http.env.json
-          private_env_file: ./tests/http.private.env.json
+          env_file: ./tests/http.rhino.env.json
+          private_env_file: ./tests/http.private.rhino.env.json
           insecure: true
+
+      - name: Test GraalVM JS engine
+        uses: ./
+        with:
+          files: |-
+            ./tests/environment file.graalvm.http
+          env: test
+          env_file: ./tests/http.graalvm.env.json
+          insecure: true
+          js: graalvm
 
       - name: Test environment variables
         uses: ./
@@ -97,3 +108,13 @@ jobs:
             tests/smoke test.http
           report: true
           insecure: true
+      - run: |
+            [ -f reports/report.xml ] || exit 1
+
+      - name: Test progress report
+        uses: ./
+        with:
+          files: |-
+            tests/smoke test.http
+          insecure: true
+          no_progress: true
