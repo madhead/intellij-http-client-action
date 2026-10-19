@@ -1,0 +1,44 @@
+name: Tag
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: tag
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    name: Tag
+    runs-on: ubuntu-latest
+    env:
+      GIT_COMMITTER_NAME: Tagga
+      GIT_COMMITTER_EMAIL: tagga@localhost
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Update tags
+        run: |
+          version=$(sed -nE 's|^FROM jetbrains/intellij-http-client:([0-9]+\.[0-9]+\.[0-9]+)$|\1|p' Dockerfile)
+          [[ -n "$version" ]] || { echo "Can't determine the version from the Dockerfile" >&2; exit 1; }
+
+          minor=${version%.*}
+          major=${minor%.*}
+
+          if ! git ls-remote --exit-code --tags origin "refs/tags/v$version" >/dev/null; then
+            git tag -m "v$version" "v$version"
+            git push origin "refs/tags/v$version"
+          fi
+
+          for tag in "v$minor" "v$major" latest; do
+            git tag -f -m "$tag" "$tag"
+            git push --force origin "refs/tags/$tag"
+          done

@@ -2,6 +2,9 @@ name: Test
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   test:
@@ -118,3 +121,21 @@ jobs:
             tests/smoke test.http
           insecure: true
           no_progress: true
+
+  automerge:
+    name: Merge Dependabot PR
+    needs: test
+    if: github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Merge
+        run: gh pr merge "${{ github.event.pull_request.html_url }}" --merge
+
+      - name: Tag
+        run: gh workflow run tag.yml --repo "${{ github.repository }}" --ref main
